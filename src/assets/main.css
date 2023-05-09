@@ -1,35 +1,23 @@
-@import './base.css';
+@import './reset.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+:root {
+  --marine-blue: 213 96% 18%;
+  --purple-blue: 243 100% 62%;
+  --pastel-blue: 228 100% 84%;
+  --light-blue: 206 94% 87%;
+  --straw-red: 354 84% 57%;
 
-  font-weight: normal;
+  --cool-grey: 231 11% 63%;
+  --light-grey: 229 24% 87%;
+  --magnolia: 217 100% 97%;
+  --alabaster: 231 100% 99%;
+  --white: 0 0% 100%;
+
+  --fs-base: 16px;
+  --ff-base: 'Ubuntu', sans-serif;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+body {
+  font-family: var(--ff-base);
+  background-color: hsl(var(--magnolia));
 }
