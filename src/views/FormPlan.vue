@@ -1,6 +1,9 @@
 <script setup>
-  import Toggle from '../components/Toggle.vue'
-  import OptionIcon from '../components/OptionIcon.vue'
+  import { useFormStore } from '@/stores/form.js'
+  import Toggle from '@/components/Toggle.vue'
+  import OptionIcon from '@/components/OptionIcon.vue'
+
+  const formStore = useFormStore()
 </script>
 
 <template>
@@ -10,35 +13,17 @@
   </div>
 
   <div class="options">
-    <OptionIcon type="radio" name="plan" inputValue="arcade" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
-      <template v-slot:icon>
-        <img src="../assets/images/icon-arcade.svg" alt="">
-      </template>
-      <template v-slot:content>
-        <h3>Arcade</h3>
-        <p>$9/mo</p>
-      </template>
-    </OptionIcon>
-
-    <OptionIcon type="radio" name="plan" inputValue="advanced" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
-      <template v-slot:icon>
-        <img src="../assets/images/icon-advanced.svg" alt="">
-      </template>
-      <template v-slot:content>
-        <h3>Advanced</h3>
-        <p>$10/mo</p>
-      </template>
-    </OptionIcon>
-
-    <OptionIcon type="radio" name="plan" inputValue="pro" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
-      <template v-slot:icon>
-        <img src="../assets/images/icon-pro.svg" alt="">
-      </template>
-      <template v-slot:content>
-        <h3>Advanced</h3>
-        <p>$12/mo</p>
-      </template>
-    </OptionIcon>
+    <template v-for="plan in formStore.plans" :key="plan.id">
+      <OptionIcon type="radio" name="plan" :inputValue="plan.name" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
+        <template v-slot:icon>
+          <img :src="plan.icon" :alt="plan.name + ' icon'">
+        </template>
+        <template v-slot:content>
+          <h3>{{ plan.name }}</h3>
+          <p>${{ plan.cost }}/{{ formStore.year ? 'yr' : 'mo' }}</p>
+        </template>
+      </OptionIcon>
+    </template>
 
     <Toggle onVal="yearly" offVal="monthly" style="--activeColor: hsl(var(--marine-blue)); --inactiveColor: hsl(var(--light-grey)); --bgColor: hsl(var(--alabaster));"/>
   </div>

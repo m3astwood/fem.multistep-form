@@ -1,5 +1,8 @@
 <script setup>
-  import OptionIcon from '../components/OptionIcon.vue'
+  import { useFormStore } from '@/stores/form.js'
+  import OptionIcon from '@/components/OptionIcon.vue'
+
+  const formStore = useFormStore()
 </script>
 
 <template>
@@ -9,36 +12,17 @@
   </div>
 
   <div class="options">
-    <OptionIcon type="checkbox" name="plan" inputValue="arcade" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
-      <template v-slot:content>
-        <h3>Online service</h3>
-        <p>Access to multiplayer games</p>
-      </template>
-      <template v-slot:aside>
-        <span class="price">+$1/mo</span>
-      </template>
-    </OptionIcon>
-
-    <OptionIcon type="checkbox" name="plan" inputValue="advanced" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
-      <template v-slot:content>
-        <h3>Larger storage</h3>
-        <p>Extra 1TB of cloud save</p>
-      </template>
-      <template v-slot:aside>
-        <span class="price">+$2/mo</span>
-      </template>
-    </OptionIcon>
-
-    <OptionIcon type="checkbox" name="plan" inputValue="pro" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
-      <template v-slot:content>
-        <h3>Customizable profile</h3>
-        <p>Custom theme on your profile</p>
-      </template>
-      <template v-slot:aside>
-        <span class="price">+$2/mo</span>
-      </template>
-    </OptionIcon>
-
+    <template v-for="addon in formStore.addons" :key="addon.id">
+      <OptionIcon type="checkbox" name="addon" :inputValue="formStore.name" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
+        <template v-slot:content>
+          <h3>{{ addon.name }}</h3>
+          <p>{{ addon.description }}</p>
+        </template>
+        <template v-slot:aside>
+          <span class="price">+${{ addon.cost }}/{{ formStore.year ? 'yr' : 'mo'}}</span>
+        </template>
+      </OptionIcon>
+    </template>
   </div>
 </template>
 
