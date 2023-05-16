@@ -6,8 +6,8 @@ import advancedIcon from '@/assets/images/icon-advanced.svg';
 import proIcon from '@/assets/images/icon-pro.svg';
 
 export const useFormStore = defineStore('form', () => {
-  const step = ref(1);
-  const year = ref(false);
+  const step = ref(0);
+  const yearly = ref(false);
 
   const plans = [
     { name: 'arcade', cost: 9, icon: arcadeIcon },
@@ -39,10 +39,14 @@ export const useFormStore = defineStore('form', () => {
   const selectedAddons = ref([]);
 
   const totalCost = computed(() => 0);
+  const verified = [null, null];
+
+  function verifyStep(step) {
+  }
 
   return {
     step,
-    year,
+    yearly,
     plans,
     addons,
     userInfo,

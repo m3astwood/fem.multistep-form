@@ -1,9 +1,9 @@
 <script setup>
-  import { useFormStore } from '@/stores/form.js'
-  import Toggle from '@/components/Toggle.vue'
-  import OptionIcon from '@/components/OptionIcon.vue'
+  import { useFormStore } from '@/stores/form.js';
+  import Toggle from '@/components/Toggle.vue';
+  import OptionIcon from '@/components/OptionIcon.vue';
 
-  const formStore = useFormStore()
+  const formStore = useFormStore();
 </script>
 
 <template>
@@ -20,12 +20,12 @@
         </template>
         <template v-slot:content>
           <h3>{{ plan.name }}</h3>
-          <p>${{ plan.cost }}/{{ formStore.year ? 'yr' : 'mo' }}</p>
+          <p>${{ plan.cost }}/{{ formStore.yearly ? 'yr' : 'mo' }}</p>
         </template>
       </OptionIcon>
     </template>
 
-    <Toggle onVal="yearly" offVal="monthly" style="--activeColor: hsl(var(--marine-blue)); --inactiveColor: hsl(var(--light-grey)); --bgColor: hsl(var(--alabaster));"/>
+    <Toggle onVal="yearly" offVal="monthly" v-model="formStore.yearly" style="--activeColor: hsl(var(--marine-blue)); --inactiveColor: hsl(var(--light-grey)); --bgColor: hsl(var(--alabaster));"/>
   </div>
 </template>
 

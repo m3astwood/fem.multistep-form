@@ -3,15 +3,15 @@
     step: Number
   });
 
-  console.log(props.step)
+  console.log(props.step);
 </script>
 
 <template>
   <div class="steps">
-    <div class="step" :class="{ active: props.step == '1' }"><span>1</span></div>
-    <div class="step" :class="{ active: props.step == '2' }"><span>2</span></div>
-    <div class="step" :class="{ active: props.step == '3' }"><span>3</span></div>
-    <div class="step" :class="{ active: props.step == '4' }"><span>4</span></div>
+    <div class="step" :class="{ active: props.step == '0' }"><span>1</span></div>
+    <div class="step" :class="{ active: props.step == '1' }"><span>2</span></div>
+    <div class="step" :class="{ active: props.step == '2' }"><span>3</span></div>
+    <div class="step" :class="{ active: props.step == '3' }"><span>4</span></div>
   </div>
 </template>
 

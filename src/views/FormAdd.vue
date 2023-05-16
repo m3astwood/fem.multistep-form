@@ -1,8 +1,8 @@
 <script setup>
-  import { useFormStore } from '@/stores/form.js'
-  import OptionIcon from '@/components/OptionIcon.vue'
+  import { useFormStore } from '@/stores/form.js';
+  import OptionIcon from '@/components/OptionIcon.vue';
 
-  const formStore = useFormStore()
+  const formStore = useFormStore();
 </script>
 
 <template>
@@ -19,7 +19,7 @@
           <p>{{ addon.description }}</p>
         </template>
         <template v-slot:aside>
-          <span class="price">+${{ addon.cost }}/{{ formStore.year ? 'yr' : 'mo'}}</span>
+          <span class="price">+${{ addon.cost }}/{{ formStore.yearly ? 'yr' : 'mo'}}</span>
         </template>
       </OptionIcon>
     </template>

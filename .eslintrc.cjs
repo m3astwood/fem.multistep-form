@@ -13,5 +13,9 @@ module.exports = {
   },
   rules: {
     quotes: ['warn', 'single'],
+    semi: ['error', 'always'],
+    'object-curly-spacing': ['warn', 'always'],
+    'array-bracket-spacing': ['warn', 'always'],
+    'space-in-parens': ['warn', 'never'],
   },
 };

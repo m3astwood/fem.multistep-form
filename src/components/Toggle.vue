@@ -1,12 +1,15 @@
 <script setup>
-  import { defineProps, ref } from 'vue'
+  import { defineProps, ref } from 'vue';
 
-  const checked = ref(false)
+  const checked = ref(false);
 
   const props = defineProps({
     onVal: String,
     offVal: String,
+    modelValue: Boolean,
   });
+
+  defineEmits([ 'update:modelValue' ]);
 </script>
 
 <template>
@@ -14,7 +17,7 @@
     <span :class="{ active: !checked }">{{ props.offVal }}</span>
     
     <label>
-      <input type="checkbox" v-model="checked">
+      <input type="checkbox" v-model="checked" :value="modelValue" @input="$emit('update:modelValue', $event.target.checked)">
       <div class="switch"></div>
     </label>
     
