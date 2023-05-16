@@ -42,7 +42,7 @@ input, label {
   width: 100%;
 }
 
-input[type="text"] {
+input:where([type="text"],[type="tel"],[type="email"]) {
   border-radius: 0.25em;
   outline: thin solid hsl(var(--light-grey));
   border: none;
