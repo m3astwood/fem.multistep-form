@@ -1,4 +1,5 @@
 @import './reset.css';
+@import './fonts/ubuntu.css';
 
 :root {
   --marine-blue: 213 96% 18%;
@@ -20,4 +21,60 @@
 body {
   font-family: var(--ff-base);
   background-color: hsl(var(--magnolia));
+  color: hsl(var(--marine-blue));
+}
+
+.flow :where(h1, h2, h3, h4, h5) {
+  margin-block: 0.25em;
+}
+
+p {
+  color: hsl(var(--cool-grey));
+}
+
+.flow p {
+  margin-block-end: 1.5em;
+}
+
+/* FORM STYLES */
+input, label {
+  display: block;
+  width: 100%;
+}
+
+input[type="text"] {
+  border-radius: 0.25em;
+  outline: thin solid hsl(var(--light-grey));
+  border: none;
+  padding-inline: 1em;
+  padding-block-start: 0.5em;
+  padding-block-end: 0.75em;
+  margin-block-end: 1em;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+input::placeholder {
+  color: hsl(var(--cool-grey));
+  opacity: 1;
+}
+
+label {
+  font-size: 0.75em;
+  color: hsl(var(--marine-blue));
+}
+
+button {
+  background-color: hsl(var(--marine-blue));
+  color: hsl(var(--white));
+  font-size: 0.9em;
+  font-weight: 600;
+  padding-block: 0.75em;
+  padding-inline: 1.25em;
+  border-radius: 0.25em;
+  border: none;
+}
+
+button:hover {
+  background-color: hsl(var(--pastel-blue));
 }

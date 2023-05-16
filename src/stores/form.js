@@ -1,12 +1,19 @@
-import { computed, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useCounterStore = defineStore('form', () => {
-  const count = ref(0);
-  const doubleCount = computed(() => count.value * 2);
-  function increment() {
-    count.value++;
+export const useFormStore = defineStore('form', () => {
+  const step = ref(1);
+  const year = ref(true);
+
+  const userInfo = reactive({
+    name: '',
+    email: '',
+    phone: '',
+  });
+
+  // Array for validations per step?
+  function nextStep() {
   }
 
-  return { count, doubleCount, increment };
+  return { step, year, userInfo, nextStep };
 });
