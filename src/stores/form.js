@@ -1,6 +1,8 @@
 import { computed, reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 
+import { validate } from 'validate.js';
+
 import arcadeIcon from '@/assets/images/icon-arcade.svg';
 import advancedIcon from '@/assets/images/icon-advanced.svg';
 import proIcon from '@/assets/images/icon-pro.svg';
@@ -30,18 +32,71 @@ export const useFormStore = defineStore('form', () => {
   ];
 
   const userInfo = reactive({
-    name: '',
-    email: '',
-    phone: '',
+    name: {
+      value: '',
+      errors: null,
+    },
+    email: {
+      value: '',
+      errors: '',
+    },
+    phone: {
+      values: '',
+      errors: null,
+    },
   });
 
   const selectedPlan = ref(null);
   const selectedAddons = ref([]);
 
   const totalCost = computed(() => 0);
-  const verified = [null, null];
 
-  function verifyStep(step) {
+  validate.formatters.custom = function(errors) {
+    let obj = {};
+    errors.forEach((err) => {
+      let key = err.attribute.replace(/\.value/, '');
+
+      if (!obj[key]) {
+        obj[key] = [];
+      }
+
+      let { validator, error, value } = err;
+
+      obj[key].push({ validator, message: error, value });
+    });
+
+    return obj;
+  };
+
+  function validateStep() {
+    if (step.value == 0) {
+      const constraints = {
+        'name.value': {
+          presence: { allowEmpty: false },
+          length: { minimum: 2 },
+        },
+        'email.value': {
+          presence: { allowEmpty: false },
+          email: true,
+        },
+        'phone.value': {
+          presence: { allowEmpty: false },
+          length: { minimum: 5 },
+        },
+      };
+
+      const v = validate({ ...userInfo }, constraints, { format: 'custom' });
+
+      if (v) {
+        Object.keys(v).forEach((k) => {
+          userInfo[k].errors = v[k];
+        });
+      } else {
+        Object.keys(userInfo).forEach((k) => {
+          userInfo[k].errors = [];
+        });
+      }
+    }
   }
 
   return {
@@ -53,5 +108,6 @@ export const useFormStore = defineStore('form', () => {
     selectedPlan,
     selectedAddons,
     totalCost,
+    validateStep,
   };
 });

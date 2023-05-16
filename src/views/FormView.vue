@@ -1,11 +1,11 @@
 <script setup>
   import { useFormStore } from '../stores/form.js';
-  import StepTracker from '../components/StepTracker.vue'
+  import StepTracker from '../components/StepTracker.vue';
 
-  const formStore = useFormStore()
+  const formStore = useFormStore();
 
   function nextStep() {
-    console.log(formStore.userInfo)
+    console.log(formStore.userInfo);
   }
 </script>
 
@@ -21,7 +21,7 @@
       </section>
 
       <footer>
-        <button @click="nextStep">Next Step</button>
+        <button @click="formStore.validateStep">Next Step</button>
       </footer>
     </main>
   </div>
