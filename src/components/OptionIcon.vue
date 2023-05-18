@@ -1,21 +1,42 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref } from 'vue';
 
   const props = defineProps({
     name: String,
     inputValue: String,
     icon: String,
     type: String,
+    modelValue: String
   });
 
-  const checked = ref(false)
+  const checked = ref(false);
 </script>
 
 <template>
   <label>
-    <input :type="props.type" :value="props.inputValue" :name="props.name" v-model="checked">
+    <!-- interacvtive element -->
+    <input 
+      :type="props.type" 
+      :name="props.name" 
+
+      :value="props.modelValue" 
+      @input="$emit('update:modelValue', $event.target.value)"
+
+      v-model="checked"
+    >
+
     <div class="option">
-      <input v-if="props.type == 'checkbox'" type="checkbox" :value="props.inputValue" name="props.name" :checked="checked" v-model="checked">
+      <!-- visual checkbox -->
+      <input 
+        v-if="props.type == 'checkbox'" 
+        type="checkbox" 
+        name="props.name" 
+
+        :checked="checked" 
+
+        v-model="checked"
+      >
+
       <slot v-else name="icon">
       </slot>
       <div class="content">

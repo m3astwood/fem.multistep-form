@@ -1,8 +1,28 @@
 <script setup>
+  import { useRouter } from 'vue-router';
   import { useFormStore } from '../stores/form.js';
   import StepTracker from '../components/StepTracker.vue';
 
+  const router = useRouter();
   const formStore = useFormStore();
+
+  function nextStep() {
+    if (formStore.validateStep()) {
+      let destination = null;
+      switch (formStore.step) {
+        case 0:
+          destination = 'plan';
+          break;
+        case 1:
+          destination = 'addons';
+          break;
+        case 2:
+          destination = 'summary';
+          break;
+      }
+      router.push(destination);
+    }
+  }
 </script>
 
 <template>
@@ -22,7 +42,7 @@
       </section>
 
       <footer>
-        <button @click="formStore.validateStep">Next Step</button>
+        <button @click="nextStep">Next Step</button>
       </footer>
     </main>
   </div>

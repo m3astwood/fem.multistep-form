@@ -1,5 +1,6 @@
 import { computed, reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
+import { useRouter } from 'vue-router';
 
 import { validate } from 'validate.js';
 
@@ -8,6 +9,8 @@ import advancedIcon from '@/assets/images/icon-advanced.svg';
 import proIcon from '@/assets/images/icon-pro.svg';
 
 export const useFormStore = defineStore('form', () => {
+  const router = useRouter();
+
   const step = ref(0);
   const yearly = ref(false);
 
@@ -49,7 +52,7 @@ export const useFormStore = defineStore('form', () => {
   const selectedPlan = ref(null);
   const selectedAddons = ref([]);
 
-  const totalCost = computed(() => 0);
+  const costSummary = computed(() => 0);
 
   validate.formatters.custom = function(errors) {
     let obj = {};
@@ -73,7 +76,10 @@ export const useFormStore = defineStore('form', () => {
       const constraints = {
         'name.value': {
           presence: { allowEmpty: false },
-          length: { minimum: 2 },
+          length: {
+            minimum: 2,
+            message: 'must be > 1 character',
+          },
         },
         'email.value': {
           presence: { allowEmpty: false },
@@ -81,22 +87,36 @@ export const useFormStore = defineStore('form', () => {
         },
         'phone.value': {
           presence: { allowEmpty: false },
-          length: { minimum: 5 },
+          length: { minimum: 5, message: 'is not valid' },
         },
       };
 
       const v = validate({ ...userInfo }, constraints, { format: 'custom' });
+      console.log(v);
 
       if (v) {
         Object.keys(v).forEach((k) => {
           userInfo[k].errors = v[k];
         });
+        return false;
       } else {
         Object.keys(userInfo).forEach((k) => {
-          userInfo[k].errors = [];
+          userInfo[k].errors = null;
         });
       }
     }
+
+    if (step.value == 1) {
+      const v = validate.single(selectedPlan.value, {
+        presence: { message: 'You must select a plan' },
+      });
+
+      if (v) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   return {
@@ -107,7 +127,7 @@ export const useFormStore = defineStore('form', () => {
     userInfo,
     selectedPlan,
     selectedAddons,
-    totalCost,
+    costSummary,
     validateStep,
   };
 });

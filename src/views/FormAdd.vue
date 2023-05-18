@@ -1,5 +1,6 @@
 <script setup>
   import { useFormStore } from '@/stores/form.js';
+  import { costFormat } from '@/lib/utils.js';
   import OptionIcon from '@/components/OptionIcon.vue';
 
   const formStore = useFormStore();
@@ -12,17 +13,26 @@
   </div>
 
   <div class="options">
-    <template v-for="addon in formStore.addons" :key="addon.id">
-      <OptionIcon type="checkbox" name="addon" :inputValue="formStore.name" style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))">
-        <template v-slot:content>
-          <h3>{{ addon.name }}</h3>
-          <p>{{ addon.description }}</p>
-        </template>
-        <template v-slot:aside>
-          <span class="price">+${{ addon.cost }}/{{ formStore.yearly ? 'yr' : 'mo'}}</span>
-        </template>
-      </OptionIcon>
-    </template>
+    <OptionIcon 
+      v-for="addon in formStore.addons" 
+      :key="addon.id"
+
+      type="checkbox" 
+      name="addon" 
+      :modelValue="addon.name" 
+      v-model="formStore.selectedAddons"
+
+      style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))"
+    >
+
+      <template v-slot:content>
+        <h3>{{ addon.name }}</h3>
+        <p>{{ addon.description }}</p>
+      </template>
+      <template v-slot:aside>
+        <span class="price">+${{ costFormat(addon.cost) }}/{{ formStore.yearly ? 'yr' : 'mo'}}</span>
+      </template>
+    </OptionIcon>
   </div>
 </template>
 
