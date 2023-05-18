@@ -1,6 +1,6 @@
 <script setup>
   import { useFormStore } from '@/stores/form.js';
-  import Toggle from '@/components/Toggle.vue';
+  import ToggleSwitch from '@/components/ToggleSwitch.vue';
   import OptionIcon from '@/components/OptionIcon.vue';
 
   const formStore = useFormStore();
@@ -25,7 +25,7 @@
       </OptionIcon>
     </template>
 
-    <Toggle onVal="yearly" offVal="monthly" v-model="formStore.yearly" style="--activeColor: hsl(var(--marine-blue)); --inactiveColor: hsl(var(--light-grey)); --bgColor: hsl(var(--alabaster));"/>
+    <ToggleSwitch onVal="yearly" offVal="monthly" v-model="formStore.yearly" style="--activeColor: hsl(var(--marine-blue)); --inactiveColor: hsl(var(--light-grey)); --bgColor: hsl(var(--alabaster));"/>
   </div>
 </template>
 

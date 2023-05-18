@@ -1,5 +1,4 @@
 <script setup>
-  import OptionIcon from '../components/OptionIcon.vue'
 </script>
 
 <template>

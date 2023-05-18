@@ -3,15 +3,16 @@
   import StepTracker from '../components/StepTracker.vue';
 
   const formStore = useFormStore();
-
-  function nextStep() {
-    console.log(formStore.userInfo);
-  }
 </script>
 
 <template>
   <div class="multi-form">
     <aside>
+      <img 
+        class="background" 
+        srcset="../assets/images/bg-sidebar-desktop.svg 800w, ../assets/images/bg-sidebar-mobile.svg 500w"
+        sizes="(max-width: 500px) 375, 800"
+      >
       <StepTracker :step="formStore.step" style="--activeBg: hsl(var(--light-blue)); --activeColor: hsl(var(--marine-blue))"></StepTracker>
     </aside>
     
@@ -30,17 +31,28 @@
 <style scoped>
 aside {
   position: relative;
-  background-size: cover;
   padding-block: 2em;
 }
 
-aside:before {
+aside .background {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* aside:before {
   content: url('../assets/images/bg-sidebar-mobile.svg');
   position: absolute;
   inset: 0;
   background: blue;
   z-index: -10;
-}
+  width: 100vw;
+  height: 5em;
+  outline: thin solid lime;
+} */
 
 section.form, footer {
   background-color: hsl(var(--white));
