@@ -1,7 +1,10 @@
 <script setup>
+  import { ref } from 'vue';
   import { useFormStore } from '@/stores/form.js';
   import { costFormat } from '@/lib/utils.js';
   import OptionIcon from '@/components/OptionIcon.vue';
+
+  const addonList = ref([]);
 
   const formStore = useFormStore();
 </script>
@@ -19,7 +22,8 @@
 
       type="checkbox" 
       name="addon" 
-      :modelValue="addon.name" 
+      :value="addon" 
+
       v-model="formStore.selectedAddons"
 
       style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))"

@@ -1,15 +1,48 @@
 <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
 
   const props = defineProps({
     name: String,
-    inputValue: String,
-    icon: String,
     type: String,
-    modelValue: String
+    checked: Boolean,
+    value: Object,
+    modelValue: Object,
   });
 
-  const checked = ref(false);
+  const emit = defineEmits([ 'update:modelValue' ]);
+
+  const isChecked = computed(() => {
+    if (props.modelValue instanceof Array) {
+      return props.modelValue.includes(props.value);
+    }
+
+    return props.modelValue === true;
+  });
+
+  function updateInput(event) {
+    //$emit('update:modelValue', $event.target.value)
+
+    let isChecked = event.target.checked;
+
+    if (props.modelValue instanceof Array) {
+      let newValue = [ ...props.modelValue ];
+
+      if (isChecked) {
+        newValue.push(props.value);
+      } else {
+        newValue.splice(newValue.indexOf(props.value), 1);
+      }
+
+      emit('update:modelValue', newValue);
+    } else {
+      if (props.type === 'checkbox' && !props.value) {
+        emit('update:modelValue', !!isChecked);
+      } else {
+        emit('update:modelValue', props.value);
+      }
+    }
+
+  }
 </script>
 
 <template>
@@ -19,10 +52,10 @@
       :type="props.type" 
       :name="props.name" 
 
-      :value="props.modelValue" 
-      @input="$emit('update:modelValue', $event.target.value)"
+      :value="props.value" 
+      @change="updateInput"
 
-      v-model="checked"
+      :checked="isChecked"
     >
 
     <div class="option">
@@ -32,16 +65,14 @@
         type="checkbox" 
         name="props.name" 
 
-        :checked="checked" 
-
-        v-model="checked"
+        :checked="isChecked" 
       >
 
-      <slot v-else name="icon">
+      <slot name="icon">
       </slot>
       <div class="content">
         <slot name="content">
-          <h3>{{ props.inputValue }}</h3>
+          <h3>{{ props.modelValue }}</h3>
         </slot>
       </div>
       <slot name="aside"></slot>

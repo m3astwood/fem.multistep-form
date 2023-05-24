@@ -1,6 +1,5 @@
 import { computed, reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
-import { useRouter } from 'vue-router';
 
 import { validate } from 'validate.js';
 
@@ -9,8 +8,6 @@ import advancedIcon from '@/assets/images/icon-advanced.svg';
 import proIcon from '@/assets/images/icon-pro.svg';
 
 export const useFormStore = defineStore('form', () => {
-  const router = useRouter();
-
   const step = ref(0);
   const yearly = ref(false);
 
@@ -49,7 +46,7 @@ export const useFormStore = defineStore('form', () => {
     },
   });
 
-  const selectedPlan = ref(null);
+  const selectedPlan = ref({});
   const selectedAddons = ref([]);
 
   const costSummary = computed(() => 0);

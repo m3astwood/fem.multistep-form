@@ -20,8 +20,11 @@
 
       type="radio" 
       name="plan" 
-      :modelValue="plan.name"
+      :value="plan"
+
       v-model="formStore.selectedPlan"
+
+      :checked="plan.name == formStore.selectedPlan.name"
 
       style="--activeColor: hsl(var(--marine-blue)); --activeBg: hsl(var(--magnolia)); --inactiveColor: hsl(var(--light-grey))"
     >
