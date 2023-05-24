@@ -1,11 +1,7 @@
 <script setup>
-  import { ref } from 'vue';
   import { useFormStore } from '@/stores/form.js';
   import { costFormat } from '@/lib/utils.js';
   import OptionIcon from '@/components/OptionIcon.vue';
-
-  const addonList = ref([]);
-
   const formStore = useFormStore();
 </script>
 

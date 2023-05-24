@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, computed } from 'vue';
+  import { computed } from 'vue';
 
   const props = defineProps({
     name: String,
@@ -14,14 +14,15 @@
   const isChecked = computed(() => {
     if (props.modelValue instanceof Array) {
       return props.modelValue.includes(props.value);
+    } else if (props.type === 'checkbox') {
+      return props.modelValue === true;
+    } else {
+      return props.checked;
     }
 
-    return props.modelValue === true;
   });
 
   function updateInput(event) {
-    //$emit('update:modelValue', $event.target.value)
-
     let isChecked = event.target.checked;
 
     if (props.modelValue instanceof Array) {
