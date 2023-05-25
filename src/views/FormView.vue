@@ -33,7 +33,10 @@
         srcset="../assets/images/bg-sidebar-desktop.svg 800w, ../assets/images/bg-sidebar-mobile.svg 500w"
         sizes="(max-width: 500px) 375, 800"
       >
-      <StepTracker :step="formStore.step" style="--activeBg: hsl(var(--light-blue)); --activeColor: hsl(var(--marine-blue))"></StepTracker>
+      <StepTracker 
+        :step="formStore.step" 
+        style="--activeBg: hsl(var(--light-blue)); --activeColor: hsl(var(--marine-blue))"
+      ></StepTracker>
     </aside>
     
     <main>

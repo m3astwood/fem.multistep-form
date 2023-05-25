@@ -65,6 +65,7 @@
         v-if="props.type == 'checkbox'" 
         type="checkbox" 
         name="props.name" 
+        id="visualCheckbox"
 
         :checked="isChecked" 
       >
