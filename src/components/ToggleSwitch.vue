@@ -1,7 +1,5 @@
 <script setup>
-  import { defineProps, ref } from 'vue';
-
-  const checked = ref(false);
+  import { computed } from 'vue';
 
   const props = defineProps({
     onVal: String,
@@ -9,19 +7,31 @@
     modelValue: Boolean,
   });
 
-  defineEmits([ 'update:modelValue' ]);
+  const emit = defineEmits([ 'update:modelValue' ]);
+
+  const value = computed({
+    get() {
+      return props.modelValue;
+    },
+    set(value) {
+      emit('update:modelValue', value);
+    }
+  });
 </script>
 
 <template>
   <div class="toggle">
-    <span :class="{ active: !checked }">{{ props.offVal }}</span>
+    <span :class="{ active: !value }">{{ props.offVal }}</span>
     
     <label>
-      <input type="checkbox" v-model="checked" :value="modelValue" @input="$emit('update:modelValue', $event.target.checked)">
+      <input 
+        type="checkbox" 
+        v-model="value" 
+      >
       <div class="switch"></div>
     </label>
     
-    <span :class="{ active: checked }">{{ props.onVal }}</span>
+    <span :class="{ active: value }">{{ props.onVal }}</span>
   </div>
 </template>
 
